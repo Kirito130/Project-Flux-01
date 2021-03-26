@@ -1,4 +1,34 @@
+<?php
+   
+  // Message Vars
+  $msg = '';
+  $msgClass = '';
 
+  if(filter_has_var(INPUT_POST, 'submit')) {
+    // Get Form Data
+    $mail = htmlspecialchars($_POST['mail']);
+
+    //Check Required Fields
+    if(!empty($mail)) {
+      // Passed Check email
+      include_once 'assets/php/dbh.inc.php';
+
+      $mail = $_POST['mail'];
+
+      $sql = "INSERT INTO email (user_email) VALUES ('$mail');";
+      mysqli_query($conn, $sql);
+
+      $msg = 'Registration Successful!';
+      $msgClass = 'alert-success';
+      
+    } else {
+      // Failed
+      $msg = 'Please enter an email';
+      $msgClass = 'alert-danger';
+    }
+
+  }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
